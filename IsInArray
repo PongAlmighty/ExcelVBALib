@@ -1,0 +1,4 @@
+' Returns Boolean on whether a string is found anywhere in an array
+Function IsInArray(stringToBeFound As String, arr As Variant) As Boolean
+  IsInArray = Not IsError(Application.Match(stringToBeFound, arr, 0))
+End Function
