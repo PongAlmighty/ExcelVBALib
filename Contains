@@ -1,0 +1,11 @@
+Searches one string for another. Returns True if exists
+
+Public Function Contains(BaseString As String, SearchTerm As String) As Boolean
+'Purpose: Returns TRUE if one string exists within another
+On Error GoTo ErrorMessage
+    Contains = InStr(BaseString, SearchTerm)
+Exit Function
+ErrorMessage:
+MsgBox "The database has generated an error. Please contact the database administrator, quoting the following error message: '" & Err.Description & "'", vbCritical, "Database Error"
+End
+End Function
