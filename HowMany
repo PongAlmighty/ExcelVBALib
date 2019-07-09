@@ -1,0 +1,23 @@
+Function HowMany(HMSearchTerm, HMSearchRange As Range, Optional SearchHarder As Integer)
+' This is currently set up to use AlphaAndOmega, but it returns the number of fields that match HMSearchTerm exactly or partially if 1 is specified
+
+Dim FirstLine As Integer
+Dim LastLine As Integer
+Dim SearchTermString As String
+SearchTermString = CStr(HMSearchTerm)
+
+If SearchHarder = 1 Then
+    HowMany = Application.WorksheetFunction.CountIf(HMSearchRange, SearchTermString)
+Else
+    FirstLine = (AlphaAndOmega(SearchTermString, HMSearchRange, 3) - 1)
+    LastLine = AlphaAndOmega(SearchTermString, HMSearchRange, 0)
+
+    If LastLine + FirstLine < 2 Then
+        HowMany = 0
+    Else
+        HowMany = (LastLine - FirstLine)
+    End If
+End If
+
+
+End Function
