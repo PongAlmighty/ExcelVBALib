@@ -1,0 +1,60 @@
+Function CleanUp(InString As Variant) As String
+
+'Checks the left and rightmost character and deletes it to prevent leading spaces, hyphens, etc.
+
+Dim Status As Integer
+Status = 0
+
+Do While Status = 0
+    Select Case Left(InString, 1)
+        Case " "
+            Status = 0
+        Case "-"
+            Status = 0
+        Case ","
+            Status = 0
+        Case "."
+            Status = 0
+        Case Else
+            Status = 1
+    End Select
+    
+    If Status = 0 Then
+        CleanUp = Right(InString, Len(InString) - 1)
+        InString = CleanUp
+    Else
+        CleanUp = InString
+    End If
+    
+      
+Loop
+
+'Above only cleans the left side, making the same to clean the right side.
+
+Status = 0
+
+Do While Status = 0
+   Select Case Right(InString, 1)
+        Case " "
+            Status = 0
+        Case "-"
+            Status = 0
+        Case " "
+            Status = 0
+        Case ","
+            Status = 0
+        Case "."
+            Status = 0
+        Case Else
+            Status = 1
+    End Select
+
+    If Status = 0 Then
+        CleanUp = Left(InString, Len(InString) - 1)
+        InString = CleanUp
+    Else
+        CleanUp = InString
+    End If
+Loop
+
+End Function
