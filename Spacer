@@ -1,0 +1,10 @@
+Function Spacer(TempString As Variant, NumSpaces As Integer) As String
+
+'Adds as many leading zeros as it takes to get to "NumSpaces"
+
+    Do While Len(TempString) < NumSpaces
+        TempString = "0" & TempString
+    Loop
+    
+    Spacer = TempString
+End Function
