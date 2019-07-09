@@ -1,0 +1,14 @@
+' Tells you whether a string appears anywhere in a worksheet
+
+Function ThereAtAll(InputSht As Worksheet, InputSTR As String) As Integer
+ 
+Dim Test As Range
+Set Test = InputSht.UsedRange.Find(What:=InputSTR, LookIn:=xlFormulas)
+
+If Not Test Is Nothing Then
+    ThereAtAll = 1
+Else
+    ThereAtAll = 0
+End If
+
+End Function
