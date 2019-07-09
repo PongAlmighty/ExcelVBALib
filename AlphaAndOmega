@@ -1,0 +1,46 @@
+'This one needs some love. It's had a hard life. Still usable but will need to hack through the comments at some point.
+
+Function AlphaAndOmega(SearchTerm As String, SearchRange As Range, SearchType As Integer) As Long
+    'Finds first (if 1) or last (if 0) row in a given range that matches a search term 100%
+    If SearchTerm > "0" Then
+        If SearchType = 1 Then
+            ' A And O was originally made to find a range within a larger range, since I'm using it here for
+            '   an entire range, I'm commenting the below line out and just starting at 2 and calling it good.
+            '
+            'AlphaAndOmega = SearchRange.Find(What:=searchTerm, After:=SearchRange(1)).Row
+            '
+            AlphaAndOmega = 2
+        ElseIf SearchType = 0 Then
+            AlphaAndOmega = SearchRange.Find(What:=SearchTerm, LookAt:=xlPart, After:=SearchRange(1), SearchDirection:=xlPrevious).Row
+        ElseIf SearchType = 3 Then
+            ' 3 replicates the original 1 - that is to say it finds the first instance of the wildcard.
+            
+            Dim intFirstRow As Long
+            Dim intLastRow As Long
+            intFirstRow = SearchRange.Row
+            intLastRow = intFirstRow + SearchRange.Rows.Count - 1
+            
+            If intLastRow > intFirstRow Then
+                AlphaAndOmega = SearchRange.Find(What:=SearchTerm, LookAt:=xlPart, After:=SearchRange(1)).Row
+            Else
+                AlphaAndOmega = 0
+            End If
+        ElseIf SearchType = 4 Then 'Find the beginning, but complete match
+            AlphaAndOmega = SearchRange.Find(What:=SearchTerm, LookAt:=xlWhole, After:=SearchRange(1)).Row
+        ElseIf SearchType = 5 Then 'Find the End, but complete match
+            AlphaAndOmega = SearchRange.Find(What:=SearchTerm, After:=SearchRange(1), LookAt:=xlWhole, SearchDirection:=xlPrevious).Row
+        End If
+    Else
+        If SearchType = 1 Then
+            AlphaAndOmega = 2
+        ElseIf SearchType = 0 Then
+        Dim lrow As Long
+        
+            lrow = SearchRange.Cells(Rows.Count, 1).End(xlUp).Row
+            'old Lrow formula: SearchRange.Range("A1").End(xlDown).Row
+            If lrow = 1 Then lrow = 2
+            
+            AlphaAndOmega = lrow
+        End If
+    End If
+End Function
