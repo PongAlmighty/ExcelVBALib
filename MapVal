@@ -1,0 +1,8 @@
+'Equivalent of "map" function in Arduino code
+' x - Test Variable
+' in_min, in_max - Range that x is currently in
+' out_min, out_max - Range that you want x converted INTO.
+
+Function MapVal(x, in_min, in_max, out_min, out_max As Long) As Long
+    MapVal = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
+End Function
